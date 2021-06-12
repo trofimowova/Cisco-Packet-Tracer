@@ -1,0 +1,344 @@
+Router1
+
+en
+conf t
+interface GigabitEthernet6/0
+ ip address 172.16.0.192 255.255.255.192
+no sh
+exit
+ip dhcp pool POOL_6.0
+ default-router 172.16.0.129
+ network 172.16.0.128 255.255.255.192
+
+en
+conf t
+interface GigabitEthernet0/0
+ ip address 172.16.1.193 255.255.255.192
+no sh
+exit
+
+en
+conf t
+interface FastEthernet9/0
+ ip address 10.0.0.2 255.255.255.192
+no sh
+exit
+wr
+
+interface FastEthernet7/0
+ ip address 172.16.2.30 255.255.255.192
+no sh
+exit
+wr
+
+router ospf 1
+ passive-interface default
+no passive-interface FastEthernet9/0
+no passive-interface GigabitEthernet0/0
+no passive-interface FastEthernet7/0
+network 172.16.0.192 0.0.0.63 area 0 
+network 172.16.1.192 0.0.0.63 area 0
+network 10.0.0.0 0.0.0.63 area 0
+network 172.16.2.0 0.0.0.63 area 0 
+
+
+
+Router 2
+en
+conf t
+interface GigabitEthernet0/0
+ ip address 172.16.1.194 255.255.255.192
+no sh
+exit
+
+interface GigabitEthernet4/0
+ ip address 10.0.1.2 255.255.255.192
+no sh
+exit
+wr
+interface FastEthernet7/0
+ ip address 172.16.2.1 255.255.255.192
+no sh
+exit
+wr
+
+
+en
+conf t
+router ospf 1
+ passive-interface default
+no passive-interface GigabitEthernet4/0
+no passive-interface GigabitEthernet0/0
+no passive-interface FastEthernet7/0
+network 172.16.1.192 0.0.0.63 area 0
+network 10.0.1.0 0.0.0.63 area 0
+network 172.16.2.0 0.0.0.63 area 0 
+
+
+
+Router 3
+en
+conf t
+interface GigabitEthernet0/0
+ ip address 172.16.1.1 255.255.255.192
+no sh
+exit
+interface FastEthernet9/0
+ip address 10.0.2.2 255.255.255.192
+no sh
+exit
+wr
+en
+conf t
+router ospf 1
+ passive-interface default
+no passive-interface GigabitEthernet0/0
+no passive-interface FastEthernet9/0
+en
+conf t
+router ospf 1
+ passive-interface default
+no passive-interface GigabitEthernet4/0
+no passive-interface GigabitEthernet0/0
+no passive-interface FastEthernet7/0
+network 172.16.1.192 0.0.0.63 area 0
+network 10.0.2.0 0.0.0.63 area 0
+network 172.16.0.0 0.0.0.63 area 0 
+end 
+wr
+
+
+
+Router 4
+en
+conf t
+interface GigabitEthernet0/0
+ ip address 172.16.1.2 255.255.255.192
+no sh
+exit
+interface GigabitEthernet1/0
+ ip address 172.16.1.158 255.255.255.192
+no sh
+exit 
+interface GigabitEthernet4/0
+ ip address 10.0.3.2 255.255.255.192
+no sh
+exit
+wr
+
+en
+conf t
+router ospf 1
+ passive-interface default
+no passive-interface GigabitEthernet0/0
+no passive-interface GigabitEthernet1/0
+no passive-interface GigabitEthernet4/0
+network 172.16.1.0 0.0.0.63 area 0
+network 10.0.3.0 0.0.0.63 area 0
+network 172.16.1.128 0.0.0.63 area 0 
+end 
+wr
+
+Router 5
+en
+conf t
+interface GigabitEthernet0/0
+ ip address 172.16.1.65 255.255.255.192
+no sh
+exit
+ 
+interface FastEthernet9/0
+ ip address 10.0.4.2 255.255.255.192
+no sh
+end
+wr
+
+interface FastEthernet7/0
+ ip address 172.16.2.2 255.255.255.192
+no sh
+exit
+wr
+en
+conf t 
+router ospf 1
+ passive-interface default
+no passive-interface FastEthernet9/0
+no passive-interface GigabitEthernet0/0
+no passive-interface FastEthernet7/0
+network 172.16.0.64 0.0.0.63 area 0 
+network 172.16.2.0 0.0.0.63 area 0
+network 10.0.4.0 0.0.0.63 area 0
+network 172.16.1.64 0.0.0.63 area 0 
+
+
+
+
+
+Router 6
+en
+conf t
+interface GigabitEthernet0/0
+ ip address 172.16.1.66 255.255.255.192
+no sh
+exit
+interface GigabitEthernet1/0
+ ip address 172.16.1.157 255.255.255.192
+no sh
+exit
+interface GigabitEthernet4/0
+ ip address 10.0.5.2 255.255.255.192
+no sh
+end
+wr
+
+interface FastEthernet7/0
+ ip address 172.16.2.29 255.255.255.192
+no sh
+exit
+wr
+
+
+
+router ospf 1
+ passive-interface default
+no passive-interface GigabitEthernet0/0
+no passive-interface GigabitEthernet4/0
+no passive-interface GigabitEthernet1/0
+no passive-interface FastEthernet7/0
+network 172.16.1.128 0.0.0.63 area 0 
+network 172.16.2.0 0.0.0.63 area 0
+network 10.0.5.0 0.0.0.63 area 0
+network 172.16.1.64 0.0.0.63 area 0 
+
+
+
+
+
+
+Router7
+
+en
+conf t
+interface GigabitEthernet6/0
+ ip address 172.16.0.129 255.255.255.192
+no sh
+exit
+ip dhcp pool POOL_6.0
+ default-router 172.16.0.129
+ network 172.16.0.128 255.255.255.192
+
+en
+conf t
+interface GigabitEthernet0/0
+ ip address 172.16.1.129 255.255.255.192
+no sh
+exit
+interface FastEthernet9/0
+ ip address 10.0.6.2 255.255.255.192
+no sh
+end
+wr
+
+router ospf 1
+ passive-interface default
+no passive-interface FastEthernet9/0
+no passive-interface GigabitEthernet0/0
+network 172.16.1.128 0.0.0.63 area 0 
+network 10.0.6.0 0.0.0.63 area 0 
+network 172.16.0.128 0.0.0.63 area 0
+
+
+
+Router8
+
+en
+conf t
+interface GigabitEthernet0/0
+ ip address 172.16.1.130 255.255.255.192
+no sh
+exit
+
+interface GigabitEthernet4/0
+ ip address 10.0.7.2 255.255.255.192
+no sh
+exit
+wr
+
+router ospf 1
+ passive-interface default
+no passive-interface GigabitEthernet4/0
+no passive-interface GigabitEthernet0/0
+network 172.16.1.128 0.0.0.63 area 0 
+network 10.0.7.0 0.0.0.63 area 0 
+
+
+Router 9
+interface FastEthernet6/0
+ ip address 10.0.0.1 255.255.255.192
+no sh
+exit
+wr
+
+interface GigabitEthernet5/0
+ ip address 10.0.1.1 255.255.255.192
+no sh
+exit
+wr
+
+interface FastEthernet7/0
+ ip address 10.0.2.1 255.255.255.192
+no sh
+exit
+wr
+
+interface GigabitEthernet3/0
+ ip address 10.0.3.1 255.255.255.192
+no sh
+exit
+wr
+
+interface FastEthernet8/0
+ ip address 10.0.4.1 255.255.255.192
+no sh
+exit
+wr
+
+interface GigabitEthernet2/0
+ ip address 10.0.5.1 255.255.255.192
+no sh
+exit
+wr
+
+interface FastEthernet9/0
+ ip address 10.0.6.1 255.255.255.192
+no sh
+exit
+wr
+
+
+
+interface GigabitEthernet4/0
+ ip address 10.0.7.1 255.255.255.192
+no sh
+exit
+wr
+
+
+router ospf 1
+ passive-interface default
+no passive-interface FastEthernet6/0
+no passive-interface GigabitEthernet5/0
+no passive-interface GigabitEthernet3/0
+no passive-interface FastEthernet7/0
+no passive-interface FastEthernet8/0
+no passive-interface  GigabitEthernet2/0
+no passive-interface  FastEthernet9/0
+no passive-interface  GigabitEthernet4/0
+network 10.0.0.0 0.0.0.63 area 0 
+network 10.0.1.0 0.0.0.63 area 0
+network 10.0.2.0 0.0.0.63 area 0
+network 10.0.3.0 0.0.0.63 area 0 
+network 10.0.4.0 0.0.0.63 area 0 
+network 10.0.5.0 0.0.0.63 area 0 
+network 10.0.6.0 0.0.0.63 area 0 
+network 10.0.7.0 0.0.0.63 area 0 

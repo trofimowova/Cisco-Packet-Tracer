@@ -1,0 +1,77 @@
+
+Router0
+interface GigabitEthernet 0/0/0
+ip address 96.67.84.253 255.255.255.254
+no sh
+exit
+interface GigabitEthernet 0/1/0
+ip address 17.0.8.61 255.255.255.254
+no sh
+exit
+
+router ospf 1
+ passive-interface default
+no passive-interface GigabitEthernet0/0/0
+no passive-interface GigabitEthernet0/1/0
+no passive-interface GigabitEthernet0/0
+network 95.67.84.252 0.0.0.3 area 0
+network 17.0.8.60 0.0.0.3 area 0
+
+
+-------------------------------------------------------
+Router1
+
+interface GigabitEthernet 0/0/0
+ip address 96.67.84.254 255.255.255.254
+no sh
+exit
+interface GigabitEthernet 0/1/0
+ip address 187.50.48.193 255.255.255.254
+no sh
+exit
+
+router ospf 1
+ passive-interface default
+no passive-interface GigabitEthernet0/0/0
+no passive-interface GigabitEthernet0/1/0
+network 187.50.48.192 0.0.0.3 area 0 
+network 95.67.84.252 0.0.0.3 area 0
+network 72.163.4.128 0.0.0.63 area 1
+----------------------------------------------------
+
+Router2
+interface GigabitEthernet 0/0/0
+ip address 187.50.48.194 255.255.255.254
+no sh
+exit
+interface GigabitEthernet 0/1/0
+ip address 117.0.8.62 255.255.255.254
+no sh
+exit
+
+router ospf 1
+ passive-interface default
+no passive-interface GigabitEthernet0/0/0
+no passive-interface GigabitEthernet0/1/0
+network 187.50.48.192 0.0.0.3 area 0 
+network 17.0.8.60 0.0.0.3 area 0
+network 176.32.98.128 0.0.0.63 area 3
+
+
+--------------------------------------------------------------
+
+int  g0/0
+ip nat inside 
+exit
+int g0/1/0 
+ip nat outside
+exit
+int g0/0/0
+ip nat outside 
+access-list 1 permit  192.168.0.1 0.0.0.255
+access-list 3 deny any
+
+ip nat inside source list 1 int g0/0/0 overload
+ip nat inside source list 1 int g0/1/0 overload
+
+

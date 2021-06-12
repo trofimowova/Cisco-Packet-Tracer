@@ -1,0 +1,15 @@
+
+VLAN 10
+ip dhcp pool POOL_10
+ default-router 192.168.0.70
+ network 192.168.0.64 255.255.255.192
+
+VLAN 11
+ip dhcp pool POOL_11
+ default-router 192.168.0.129
+ network 192.168.0.128 255.255.255.192
+
+VLAN 12
+ip dhcp pool POOL_12
+ default-router 192.168.0.2
+ network 192.168.0.0 255.255.255.192
